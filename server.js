@@ -55,15 +55,20 @@ app.get('/setup-users-db', async (req, res) => {
 });
 
  
-// 3. Simple API to Add User (Insert Task)
+
+// 4. Real Signup API for testing users table
 app.post('/api/sql-signup', async (req, res) => {
-    const { name, email } = req.body;
+    const { name, email, password } = req.body;
     try {
         const result = await pool.query(
-            'INSERT INTO test_users (name, email) VALUES ($1, $2) RETURNING *',
-            [name, email]
+            'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING id, name, email',
+            [name, email, password]
         );
-        res.status(201).json({ success: true, data: result.rows[0], message: "User saved in SQL database successfully!" });
+        res.status(201).json({ 
+            success: true, 
+            data: result.rows[0], 
+            message: "Mubarak ho! User saved in Render SQL Database live!" 
+        });
     } catch (error) {
         res.status(500).json({ success: false, error: error.message });
     }
