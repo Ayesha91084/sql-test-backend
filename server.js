@@ -16,20 +16,36 @@ const pool = new Pool({
     ssl: { rejectUnauthorized: false } // Live server connection ke liye zaroori hai
 });
 
-// 1. Test Route to check if API is alive
-// 1. Live Frontend Test Page
+// 1. Live Frontend Test Page (Signup + Login)
 app.get('/', (req, res) => {
     res.send(`
-        <div style="font-family: Arial; max-width: 400px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px;">
-            <h2>EventEase Live SQL Signup Test</h2>
-            <form action="/api/sql-signup" method="POST" style="display: flex; flex-direction: column; gap: 10px;">
-                <input type="text" name="name" placeholder="Apna Naam Likhein" required style="padding: 8px;">
-                <input type="email" name="email" placeholder="Apna Email Likhein" required style="padding: 8px;">
-                <input type="password" name="password" placeholder="Password Dalein" required style="padding: 8px;">
-                <button type="submit" style="padding: 10px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">
-                    Live Register Karein!
-                </button>
-            </form>
+        <div style="font-family: Arial; max-width: 400px; margin: 30px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; background: #f9f9f9;">
+            <h2 style="color: #007bff; text-align: center;">EventEase SQL Live Testing</h2>
+            
+            <!-- SIGNUP FORM -->
+            <div style="margin-bottom: 30px; padding-bottom: 20px; border-bottom: 2px dashed #ccc;">
+                <h3>1. Signup Test</h3>
+                <form action="/api/sql-signup" method="POST" style="display: flex; flex-direction: column; gap: 10px;">
+                    <input type="text" name="name" placeholder="Apna Naam Likhein" required style="padding: 8px;">
+                    <input type="email" name="email" placeholder="Apna Email Likhein" required style="padding: 8px;">
+                    <input type="password" name="password" placeholder="Password Dalein" required style="padding: 8px;">
+                    <button type="submit" style="padding: 10px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                        Live Register Karein!
+                    </button>
+                </form>
+            </div>
+
+            <!-- LOGIN FORM -->
+            <div>
+                <h3>2. Login Test</h3>
+                <form action="/api/sql-login" method="POST" style="display: flex; flex-direction: column; gap: 10px;">
+                    <input type="email" name="email" placeholder="Apna Email Likhein" required style="padding: 8px;">
+                    <input type="password" name="password" placeholder="Password Dalein" required style="padding: 8px;">
+                    <button type="submit" style="padding: 10px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                        Live Login Karein!
+                    </button>
+                </form>
+            </div>
         </div>
     `);
 });
