@@ -67,6 +67,34 @@ app.get('/setup-users-db', async (req, res) => {
     }
 });
 
+// 5. Real Login API for testing
+app.post('/api/sql-login', async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        const result = await pool.query(
+            'SELECT * FROM users WHERE email = $1',
+            [email]
+        );
+
+        if (result.rows.length === 0) {
+            return res.status(404).send("Error: User nahi mila! Pehle signup karein.");
+        }
+
+        const user = result.rows[0];
+
+        // Abhi plain password check kar rahe hain testing ke liye
+        if (user.password !== password) {
+            return res.status(401).send("Error: Password galat hai!");
+        }
+
+        res.status(200).json({
+            success: true,
+            message: `Mubarak ho ${user.name}! Aap kamyabi se login ho gaye hain live SQL database mein!`
+        });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
  
 
 // 4. Real Signup API for testing users table
