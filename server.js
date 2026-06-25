@@ -131,11 +131,15 @@ app.post('/api/sql-signup', async (req, res) => {
     }
 });
 
-// 4. Simple API to Get All Users (Select Task)
+// 6. Real Get All Users API for testing
 app.get('/api/sql-users', async (req, res) => {
     try {
-        const result = await pool.query('SELECT * FROM test_users');
-        res.status(200).json({ success: true, data: result.rows });
+        const result = await pool.query('SELECT id, name, email FROM users ORDER BY id DESC');
+        res.status(200).json({ 
+            success: true, 
+            total_users: result.rows.length,
+            data: result.rows 
+        });
     } catch (error) {
         res.status(500).json({ success: false, error: error.message });
     }
