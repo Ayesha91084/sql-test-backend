@@ -35,7 +35,26 @@ app.get('/setup-db', async (req, res) => {
         res.status(500).json({ success: false, error: error.message });
     }
 });
+ 
+// 3. API to Create Users Table for Signup/Login testing
+app.get('/setup-users-db', async (req, res) => {
+    try {
+        await pool.query(`
+            CREATE TABLE IF NOT EXISTS users (
+                id SERIAL PRIMARY KEY,
+                name VARCHAR(100) NOT NULL,
+                email VARCHAR(100) UNIQUE NOT NULL,
+                password VARCHAR(255) NOT NULL
+            );
+        `);
+        res.send("Success: 'users' table created or already exists in Render SQL database!");
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Error creating users table: " + err.message);
+    }
+});
 
+ 
 // 3. Simple API to Add User (Insert Task)
 app.post('/api/sql-signup', async (req, res) => {
     const { name, email } = req.body;
