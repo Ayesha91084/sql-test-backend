@@ -16,10 +16,22 @@ const pool = new Pool({
 });
 
 // 1. Test Route to check if API is alive
+// 1. Live Frontend Test Page
 app.get('/', (req, res) => {
-    res.send("Simple SQL API is running perfectly live on Render!");
+    res.send(`
+        <div style="font-family: Arial; max-width: 400px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px;">
+            <h2>EventEase Live SQL Signup Test</h2>
+            <form action="/api/sql-signup" method="POST" style="display: flex; flex-direction: column; gap: 10px;">
+                <input type="text" name="name" placeholder="Apna Naam Likhein" required style="padding: 8px;">
+                <input type="email" name="email" placeholder="Apna Email Likhein" required style="padding: 8px;">
+                <input type="password" name="password" placeholder="Password Dalein" required style="padding: 8px;">
+                <button type="submit" style="padding: 10px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                    Live Register Karein!
+                </button>
+            </form>
+        </div>
+    `);
 });
-
 // 2. API to Create Table (For testing database connectivity)
 app.get('/setup-db', async (req, res) => {
     try {
